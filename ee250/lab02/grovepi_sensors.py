@@ -39,9 +39,9 @@ if __name__ == '__main__':
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.2)
         try:
-                dis = grovepi.ultrasonicRead(PORT) / 10
+                dis = grovepi.ultrasonicRead(PORT) / 1
                 sensor_value = grovepi.analogRead(PORTR)
-                threshold = sensor_value / 40
+                threshold = sensor_value / 4
         except TypeError:
                 print ("Error")
         if(dis > threshold):
