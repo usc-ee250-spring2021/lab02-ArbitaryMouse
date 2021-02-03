@@ -45,8 +45,8 @@ if __name__ == '__main__':
         except TypeError:
                 print ("Error")
         if(dis > threshold):
-                setText(threshold + "cm \n " + dis + "cm")
+                setText(threshold.str() + "cm \n " + dis.str() + "cm")
                 setRGB(0,255,0)
         else:
-                setText(threshold + "cm OBJ PRES \n " + dis + "cm")
+                setText(threshold.str() + "cm OBJ PRES \n " + dis.str() + "cm")
                 setRGB(255,0,0)
