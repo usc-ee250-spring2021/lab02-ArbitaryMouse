@@ -44,7 +44,8 @@ if __name__ == '__main__':
                 threshold = sensor_value / 40
         except TypeError:
                 print ("Error")
-        setText("\.1f threshold cm")
-        setRGB(0,128,64)
-        setRGB(0,255,0)
-        setText("\n \.1f dis cm")
+        setText(threshold + "cm \n " + dis + "cm")
+        if(dis > threshold)
+                setRGB(0,255,0)
+        else
+                setRGB(255,0,0)
