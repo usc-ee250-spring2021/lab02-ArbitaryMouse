@@ -33,7 +33,8 @@ if __name__ == '__main__':
     PORT = 4    # D4
     PORTR = 2
     PORTW = 2
-
+    ldis = -1
+    lsen = -1
     while True:
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
