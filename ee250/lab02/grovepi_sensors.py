@@ -46,14 +46,8 @@ if __name__ == '__main__':
         except TypeError:
                 print ("Error")
         if(dis > threshold):
-                setText(" " + str(threshold) + "cm \n " + str(dis) + "cm")
+                setText_norefresh(" " + str(threshold) + "cm \n " + str(dis) + "cm")
                 setRGB(0,255,0)
         else:
-                setText(" " + str(threshold) + "cm OBJ PRES \n " + str(dis) + "cm")
+                setText_norefresh(" " + str(threshold) + "cm OBJ PRES \n " + str(dis) + "cm")
                 setRGB(255,0,0)
-        buf=list(" " + str(threshold) + "cm OBJ PRES \n " + str(dis) + "cm")
-        setText("".join(buf))
-        for i in range(len(buf)):
-	        buf[i]="."
-	        setText_norefresh("".join(buf))
-	        time.sleep(.1)
