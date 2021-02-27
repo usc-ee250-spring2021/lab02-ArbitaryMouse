@@ -17,7 +17,6 @@ input arguments below and the Flask server initialization in
 if __name__ == '__main__':, this first callback is set to be specifically
 called when a GET request is sent to the URL "http://0.0.0.0:[port]/mailbox"
 """
-
 @app.route('/mailbox', methods=['GET'])
 def get_mailbox_callback():
     """
@@ -61,8 +60,27 @@ def get_mailbox_callback():
 # Your implementation should handle reasonable error cases as well, such as an
 # incorrect password.
 
-#def search_mailbox_callback():
+def search_mailbox_callback(field = None,text = None):
+    """
+    Summary: A callback for when SEARCH is called on [host]:[port]/mailbox/search
 
+    Returns:
+        string: A JSON-formatted string containing the response message
+    """
+    password = request.args.get('password')
+    # Check that the password is valid
+    if password == mailbox_password:
+        # Use Flask's jsonify function to format the dictionary as JSON                                                                                                            response = jsonify(mailbox_manager.get_mail())
+        response = jsonify(mailbox_manager.get_mail(field,text))
+    else:
+        if password == None:
+            response = jsonify({'Response': 'Missing password'})
+
+        else:
+            response = jsonify({'Response': 'Password does not match'})
+
+    # The object returned will be sent back as an HTTP message to the requester
+    return response
 
 @app.route('/mailbox/delete', methods=['DELETE'])
 def delete_mail_callback():
