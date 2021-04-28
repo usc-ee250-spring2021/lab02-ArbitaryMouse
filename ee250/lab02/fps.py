@@ -44,9 +44,9 @@ if __name__ == '__main__':
         try:
                 temp = t.getTemperature()
                 humid = t.getHumidity()
-        time.sleep(0.1)
         except TypeError:
                 print ("Error")
+        time.sleep(0.1)
         if(dis > threshold):
                 setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
                 setRGB(0,255,0)
