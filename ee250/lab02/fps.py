@@ -60,7 +60,7 @@ if __name__ == '__main__':
     while True:
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
-        time.sleep(0.4)
+        time.sleep(0.8)
         try:
                 temp = t.getTemperature()
                 humid = t.getHumidity()
