@@ -43,7 +43,7 @@ grovepi.write_i2c_block = protect(grovepi.write_i2c_block)
 for x in dir(bus):
      if '12c' in x or 'read' in x or 'write' in x:
            print('patching->',x)
-           fn = __getattribute__(x)
+           fn = bus.__getattribute__(x)
            bus.__setattr__(x,protect(fn))
 
 
