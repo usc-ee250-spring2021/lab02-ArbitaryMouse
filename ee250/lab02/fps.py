@@ -26,6 +26,34 @@ sys.path.append('../../Software/Python/grove_i2c_temp_hum_sensor_mini')
 import grovepi
 import grove_i2c_temp_hum_mini
 import time
+import threading
+lock = threading.Lock()
+
+def protect(fn):
+    def safefn(*arg,**kwarg):
+        with lock:
+            return fn(*arg,**kwarg)
+    return safefn
+
+
+# patch grovepi
+
+#fn = grovepi.__getattribute__('read_i2c_block')
+#grovepi.__setattr__('read_i2c_block',protect(fn))
+#fn = grovepi.__getattribute__('write_i2c_block')
+#grovepi.__setattr__('write_i2c_block',protect(fn))
+
+
+grovepi.read_i2c_block = protect(grovepi.read_i2c_block)
+grovepi.write_i2c_block = protect(grovepi.write_i2c_block)
+
+
+#patch grove_rgb_lcd
+for x in dir(grove_rgb_lcd.bus):
+    if '12c' in x or 'read' in x or 'write' in x:
+        print('patching->',x)
+        fn = grove_rgb_lcd.bus.__getattribute__(x)
+        grove_rgb_lcd.bus.__setattr__(x,protect(fn))
 
 """This if-statement checks if you are running this python file directly. That 
 is, if you run `python3 grovepi_sensors.py` in terminal, this if-statement will 
@@ -47,9 +75,8 @@ if __name__ == '__main__':
         except TypeError:
                 print ("Error")
         time.sleep(0.1)
-        if(dis > threshold):
-                setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
-                setRGB(0,255,0)
+        setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
+        setRGB(0,255,0)
         buf=list("Grove -Update without erase")
         setText("".join(buf))
         for i in range(len(buf)):
