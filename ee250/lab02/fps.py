@@ -40,11 +40,12 @@ grovepi.read_i2c_block = protect(grovepi.read_i2c_block)
 grovepi.write_i2c_block = protect(grovepi.write_i2c_block)
 
 #patch grove_rgb_lcd
-for x in dir(grove_i2c_temp_hum_mini.bus):
-    if '12c' in x or 'read' in x or 'write' in x:
-        print('patching->',x)
-        fn = grove_i2c_temp_hum_mini.bus.__getattribute__(x)
-        grove_i2c_temp_hum_mini.bus.__setattr__(x,protect(fn))
+for x in dir(grove_rgb_lcd.bus):
+     if '12c' in x or 'read' in x or 'write' in x:
+           print('patching->',x)
+           fn = grove_rgb_lcd.bus.__getattribute__(x)
+           grove_rgb_lcd.bus.__setattr__(x,protect(fn))
+
 
 """This if-statement checks if you are running this python file directly. That 
 is, if you run `python3 grovepi_sensors.py` in terminal, this if-statement will 
