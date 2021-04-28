@@ -25,6 +25,7 @@ sys.path.append('../../Software/Python/grove_i2c_temp_hum_sensor_mini')
 
 import grovepi
 import grove_i2c_temp_hum_mini
+from grove_rgb_lcd import*
 import time
 import threading
 lock = threading.Lock()
