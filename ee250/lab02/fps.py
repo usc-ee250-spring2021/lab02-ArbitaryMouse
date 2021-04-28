@@ -25,7 +25,7 @@ sys.path.append('../../Software/Python/grove_i2c_temp_hum_sensor_mini')
 
 import grovepi
 import grove_i2c_temp_hum_mini
-from grove_rgb_lcd import*
+import grove_rgb_lcd
 import time
 import threading
 lock = threading.Lock()
@@ -40,11 +40,11 @@ grovepi.read_i2c_block = protect(grovepi.read_i2c_block)
 grovepi.write_i2c_block = protect(grovepi.write_i2c_block)
 
 #patch grove_rgb_lcd
-for x in dir(bus):
+for x in dir(grove_rgb_lcd.bus):
      if '12c' in x or 'read' in x or 'write' in x:
            print('patching->',x)
-           fn = bus.__getattribute__(x)
-           bus.__setattr__(x,protect(fn))
+           fn = grove_rgb_lcd.bus.__getattribute__(x)
+           grove_rgb_lcd.bus.__setattr__(x,protect(fn))
 
 
 """This if-statement checks if you are running this python file directly. That 
@@ -67,11 +67,11 @@ if __name__ == '__main__':
         except TypeError:
                 print ("Error")
         time.sleep(0.1)
-        setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
-        setRGB(0,255,0)
+        grove_rgb_lcd.setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
+        grove_rgb_lcd.setRGB(0,255,0)
         buf=list("Grove -Update without erase")
-        setText("".join(buf))
+        grove_rgb_lcd.setText("".join(buf))
         for i in range(len(buf)):
                 buf[i]="."
-                setText_norefresh("".join(buf))
+                grove_rgb_lcd.setText_norefresh("".join(buf))
                 time.sleep(.1)
