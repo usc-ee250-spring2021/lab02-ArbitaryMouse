@@ -64,11 +64,11 @@ if __name__ == '__main__':
         #So we do not poll the sensors too quickly which may introduce noise,
         #sleep for a reasonable time of 200ms between each iteration.
         time.sleep(0.8)
-        try:
-                temp = t.getTemperature()
-                humid = t.getHumidity()
-        except TypeError:
-                print ("Error")
+        #try:
+        temp = t.getTemperature()
+        humid = t.getHumidity()
+        #except TypeError:
+        #        print ("Error")
         time.sleep(0.1)
         grove_rgb_lcd.setText(" " + str(temp) + "cm \n " + str(humid) + "cm")
         grove_rgb_lcd.setRGB(0,255,0)
