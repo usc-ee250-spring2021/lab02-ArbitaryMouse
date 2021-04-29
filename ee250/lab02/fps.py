@@ -51,6 +51,9 @@ for x in dir(grove_rgb_lcd.bus):
 is, if you run `python3 grovepi_sensors.py` in terminal, this if-statement will 
 be true"""
 t= grove_i2c_temp_hum_mini.th02()
+t.getTemperature = protect(t.getTemperature)
+t.getHumidity = protect(t.getHumidity)
+
 if __name__ == '__main__':
     PORT = 4    # D4
     PORTR = 0
